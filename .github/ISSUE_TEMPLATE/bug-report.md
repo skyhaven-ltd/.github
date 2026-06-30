@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: "[BUG] - Placeholder"
-labels: use-type-field-instead
+type: Bug
 assignees: liam-goodchild
 ---
 
