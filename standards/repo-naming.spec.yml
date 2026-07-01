@@ -1,0 +1,102 @@
+# Sky Haven repository naming specification.
+#
+# Machine-readable source of truth for the repository naming convention.
+# Consumed by humans via standards/repo-naming.md and by code via the
+# validation in skyhaven-ltd/infra-github-platform. Keep the two in sync:
+# any change to the vocabularies or grammar here must be mirrored there.
+version: 1
+
+format: "<type>-<domain>-<component>[-<qualifier>]"
+
+# Parsing rule (deterministic):
+#   Split the name on "-". The first token is the type, the second is the
+#   domain. If the final token is a registered qualifier, it is the qualifier
+#   and every token between the domain and it forms the component. Otherwise
+#   there is no qualifier and all trailing tokens form the component.
+
+# Type = the repository's primary deliverable / reason to exist. Exactly one applies.
+types:
+  app:
+    deliverable: A running service that serves requests or users.
+    tie_breaker: >-
+      Co-located infrastructure that deploys only this app and ships on the
+      same cadence stays part of the app repo (it does not become `infra`).
+      A service that serves an ML model over an API is `app`.
+  infra:
+    deliverable: Infrastructure with an independent lifecycle or multiple consumers.
+    tie_breaker: >-
+      Reserved for foundational/platform infrastructure that changes on its
+      own cadence or is depended on by many things (landing zones, shared
+      platform, environment compositions).
+  module:
+    deliverable: A reusable package other repositories depend on (IaC module or code library).
+    tie_breaker: The technology is expressed by the mandatory qualifier, not the type.
+  pipeline:
+    deliverable: Reusable CI/CD consumed by other repositories.
+    tie_breaker: CI/CD only. Data/ETL pipelines are `data`.
+  data:
+    deliverable: Moves, transforms, or analyses datasets (ETL, dbt, analytics, ML training).
+    tie_breaker: Serving a model over an API is `app`; the job that trained it is `data`.
+  docs:
+    deliverable: Human-readable prose only.
+    tie_breaker: Runnable tooling is `app`; reusable automation is `pipeline`.
+
+# Retired types and where they now fold.
+folds:
+  solution: Pick the primary deliverable (usually `app` for an app that carries its own infra).
+  ops: Runbooks -> docs; runnable tooling -> app; reusable automation -> pipeline.
+  policy: Deployed guardrails -> infra; reusable rego/policy libraries -> module.
+  config_gitops: Declarative desired state -> infra.
+  template_image_spec: Reusable artifacts consumed by others -> module.
+
+# Domain = controlled vocabulary. Add a new domain by PR to this file.
+domains:
+  - braveart      # product
+  - certwatch     # product
+  - cvengine      # product
+  - powertoggle   # product
+  - learning      # product
+  - landingzone   # Azure foundation
+  - github        # GitHub org platform
+  - homelab       # homelab infrastructure (Terraform / Ansible / Kubernetes)
+  - developer     # developer tooling and configuration
+  - engineering   # shared / cross-cutting / meta (standards, org-wide templates)
+
+# Qualifier = controlled technology vocabulary. Add a new qualifier by PR to this file.
+qualifiers:
+  - terraform
+  - bicep
+  - ansible
+  - kubernetes
+  - helm
+  - docker
+  - node
+  - dotnet
+  - python
+  - powershell
+
+# Qualifier rules:
+#   - Mandatory for these types (consumers must know the technology).
+#   - Optional elsewhere, used only to disambiguate two otherwise-identical names.
+qualifier_required_for:
+  - module
+  - pipeline
+
+# POSIX ERE. A name is valid if it matches exactly one of these.
+grammar:
+  module_pipeline: "^(module|pipeline)-(braveart|certwatch|cvengine|powertoggle|learning|landingzone|github|homelab|developer|engineering)-([a-z0-9]+(-[a-z0-9]+)*)-(terraform|bicep|ansible|kubernetes|helm|docker|node|dotnet|python|powershell)$"
+  standard: "^(app|infra|data|docs)-(braveart|certwatch|cvengine|powertoggle|learning|landingzone|github|homelab|developer|engineering)-([a-z0-9]+(-[a-z0-9]+)*)$"
+
+# Names exempt from the grammar entirely (special GitHub repositories).
+exclusions:
+  - ".github"
+
+# Pre-existing non-conforming names, grandfathered until renamed. Do not add to
+# this list for new repositories; it exists only to reconcile history.
+legacy_allowlist:
+  - solution-braveart-gallery
+  - solution-certwatch-web
+  - solution-cvengine-portfolio
+  - solution-powertoggle-vm
+  - ops-developer-config
+  - ops-homelab-config
