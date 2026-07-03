@@ -84,7 +84,7 @@ The specific part of the domain. One or more kebab words
 
 The qualifier is a **controlled technology vocabulary**:
 `terraform`, `bicep`, `ansible`, `kubernetes`, `helm`, `docker`, `node`,
-`dotnet`, `python`, `powershell` (extend by PR to the spec).
+`dotnet`, `python`, `powershell`, `actions` (extend by PR to the spec).
 
 - **`module` and `pipeline` — the qualifier is mandatory.** Consumers must know
   the technology: `module-landingzone-networking-terraform`.
@@ -114,6 +114,7 @@ otherwise there is no qualifier and all trailing tokens are the component.**
 | `infra-homelab-config` | infra | homelab | config | — |
 | `module-landingzone-networking-terraform` | module | landingzone | networking | terraform |
 | `pipeline-engineering-build-node` | pipeline | engineering | build | node |
+| `pipeline-engineering-github-actions` | pipeline | engineering | github | actions |
 | `data-cvengine-model-train` | data | cvengine | model-train | — |
 | `docs-engineering-standards` | docs | engineering | standards | — |
 

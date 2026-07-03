@@ -74,6 +74,7 @@ qualifiers:
   - dotnet
   - python
   - powershell
+  - actions      # GitHub Actions (reusable workflows / composite actions)
 
 # Qualifier rules:
 #   - Mandatory for these types (consumers must know the technology).
@@ -84,7 +85,7 @@ qualifier_required_for:
 
 # POSIX ERE. A name is valid if it matches exactly one of these.
 grammar:
-  module_pipeline: "^(module|pipeline)-(braveart|certwatch|cvengine|powertoggle|learning|landingzone|github|homelab|developer|engineering)-([a-z0-9]+(-[a-z0-9]+)*)-(terraform|bicep|ansible|kubernetes|helm|docker|node|dotnet|python|powershell)$"
+  module_pipeline: "^(module|pipeline)-(braveart|certwatch|cvengine|powertoggle|learning|landingzone|github|homelab|developer|engineering)-([a-z0-9]+(-[a-z0-9]+)*)-(terraform|bicep|ansible|kubernetes|helm|docker|node|dotnet|python|powershell|actions)$"
   standard: "^(app|infra|data|docs)-(braveart|certwatch|cvengine|powertoggle|learning|landingzone|github|homelab|developer|engineering)-([a-z0-9]+(-[a-z0-9]+)*)$"
 
 # Names exempt from the grammar entirely (special GitHub repositories).
