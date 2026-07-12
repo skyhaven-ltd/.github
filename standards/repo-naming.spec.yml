@@ -1,9 +1,9 @@
 # Sky Haven repository naming specification.
 #
 # Machine-readable source of truth for the repository naming convention.
-# Consumed by humans via standards/repo-naming.md and by code via the
-# validation in skyhaven-ltd/infra-github-platform. Keep the two in sync:
-# any change to the vocabularies or grammar here must be mirrored there.
+# Consumed by humans via standards/repo-naming.md. The Terraform validation in
+# skyhaven-ltd/infra-github-platform enforces only the type prefix; the domain
+# and qualifier vocabularies below are guidance and do not need mirroring.
 version: 1
 
 format: "<type>-<domain>-<component>[-<qualifier>]"
