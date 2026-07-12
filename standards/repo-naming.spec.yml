@@ -1,9 +1,9 @@
 # Sky Haven repository naming specification.
 #
 # Machine-readable source of truth for the repository naming convention.
-# Consumed by humans via standards/repo-naming.md and by code via the
-# validation in skyhaven-ltd/infra-github-platform. Keep the two in sync:
-# any change to the vocabularies or grammar here must be mirrored there.
+# Consumed by humans via standards/repo-naming.md. The Terraform validation in
+# skyhaven-ltd/infra-github-platform enforces only the type prefix; the domain
+# and qualifier vocabularies below are guidance and do not need mirroring.
 version: 1
 
 format: "<type>-<domain>-<component>[-<qualifier>]"
@@ -51,11 +51,13 @@ folds:
 
 # Domain = controlled vocabulary. Add a new domain by PR to this file.
 domains:
+  - bookbuddy     # product
   - braveart      # product
   - certwatch     # product
   - cvengine      # product
   - powertoggle   # product
   - learning      # product
+  - stockalert    # product
   - landingzone   # Azure foundation
   - github        # GitHub org platform
   - homelab       # homelab infrastructure (Terraform / Ansible / Kubernetes)
@@ -85,8 +87,8 @@ qualifier_required_for:
 
 # POSIX ERE. A name is valid if it matches exactly one of these.
 grammar:
-  module_pipeline: "^(module|pipeline)-(braveart|certwatch|cvengine|powertoggle|learning|landingzone|github|homelab|developer|engineering)-([a-z0-9]+(-[a-z0-9]+)*)-(terraform|bicep|ansible|kubernetes|helm|docker|node|dotnet|python|powershell|actions)$"
-  standard: "^(app|infra|data|docs)-(braveart|certwatch|cvengine|powertoggle|learning|landingzone|github|homelab|developer|engineering)-([a-z0-9]+(-[a-z0-9]+)*)$"
+  module_pipeline: "^(module|pipeline)-(bookbuddy|braveart|certwatch|cvengine|powertoggle|learning|stockalert|landingzone|github|homelab|developer|engineering)-([a-z0-9]+(-[a-z0-9]+)*)-(terraform|bicep|ansible|kubernetes|helm|docker|node|dotnet|python|powershell|actions)$"
+  standard: "^(app|infra|data|docs)-(bookbuddy|braveart|certwatch|cvengine|powertoggle|learning|stockalert|landingzone|github|homelab|developer|engineering)-([a-z0-9]+(-[a-z0-9]+)*)$"
 
 # Names exempt from the grammar entirely (special GitHub repositories).
 exclusions:
