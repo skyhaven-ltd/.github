@@ -60,7 +60,7 @@ The domain is a **controlled vocabulary**. Pick one; do not invent.
 
 | Domain | For |
 | ------ | --- |
-| `braveart`, `certwatch`, `cvengine`, `powertoggle`, `learning` | products |
+| `bookbuddy`, `braveart`, `certwatch`, `cvengine`, `powertoggle`, `learning`, `stockalert` | products |
 | `landingzone` | Azure foundation |
 | `github` | GitHub org platform |
 | `homelab` | homelab infrastructure (Terraform / Ansible / Kubernetes) |
