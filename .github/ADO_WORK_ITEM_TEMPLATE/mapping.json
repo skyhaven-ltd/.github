@@ -1,0 +1,11 @@
+{
+  "Agile": {
+    "Bug": "bug.md",
+    "Epic": "epic.md",
+    "Feature": "feature.md",
+    "Issue": "issue.md",
+    "Task": "task.md",
+    "Test Case": "test-case.md",
+    "User Story": "user-story.md"
+  }
+}
